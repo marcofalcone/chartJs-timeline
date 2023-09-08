@@ -8,11 +8,19 @@ import moment from 'moment';
 
 function App() {
   const setPointDataset = {
-    label: "power 2",
+    label: "power 1",
     data: power2Data,
-    color: "green",
+    color: "#008000",
     yAxisID: "kW",
     borderDash: [5, 5],
+    fill: true,
+  };
+
+  const sessionDetailChartDataset = {
+    label: "power 2",
+    data: power1Data,
+    color: "red",
+    yAxisID: "kW",
   };
 
   const batterySocDataset = {
@@ -20,13 +28,6 @@ function App() {
     data: percentageData,
     color: "blue",
     yAxisID: "perc",
-  };
-
-  const sessionDetailChartDataset = {
-    label: "power 1",
-    data: power1Data,
-    color: "red",
-    yAxisID: "kW",
   };
 
   const timeChartOpts = {
@@ -53,6 +54,9 @@ function App() {
     },
     scales: {
       x: {
+        grid: {
+          color: "silver",
+        },
         type: 'time',
         ticks: {
           font: {
@@ -62,6 +66,9 @@ function App() {
         },
       },
       "kW": {
+        grid: {
+          color: "silver",
+        },
         display: "auto",
         position: "left",
         title: {
@@ -78,6 +85,9 @@ function App() {
         },
       },
       "perc": {
+        grid: {
+          color: "silver",
+        },
         display: "auto",
         position: "right",
         title: {
@@ -106,13 +116,14 @@ function App() {
           datasets: [setPointDataset, sessionDetailChartDataset, batterySocDataset].map((dataset) => ({
             label: dataset.label ?? '',
             data: dataset.data ?? [],
-            backgroundColor: dataset.color,
+            backgroundColor: dataset.fill ? `${dataset.color}20` : dataset.color,
             borderColor: dataset.color,
             yAxisID: dataset.yAxisID ?? 'y',
             hoverRadius: 5,
             hitRadius: 10,
             stepped: dataset.stepped,
             borderDash: dataset.borderDash,
+            fill: dataset.fill
           })),
         }}
       />
